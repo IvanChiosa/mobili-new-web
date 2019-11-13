@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MobiliNew.Web.Models.ReturnModels.ProductReturnModels>
+
+@{
+    ViewData["Title"] = "ProductsByCategory";
+}
+
+<h3>ProductsByCategory</h3>
+
+<table class="table">
+    <tbody>
+     @foreach (var item in Model)
+      {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Available)
+            </td>
+        </tr>
+      }
+    </tbody>
+</table>

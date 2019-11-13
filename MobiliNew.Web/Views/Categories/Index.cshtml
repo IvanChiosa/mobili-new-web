@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MobiliNew.Web.Models.ReturnModels.CategoriesReturnModels>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Mobili</h3>
+
+<table class="table">
+   @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="/Product/ProductsByCategory/@item.Id">@item.Name</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+        </tr>
+    } 
+</table>
