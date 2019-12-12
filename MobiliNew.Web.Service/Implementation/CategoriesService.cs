@@ -11,17 +11,19 @@ namespace MobiliNew.Web.service.Implementation
 {
     public class CategoriesService : Service<Categories>, ICategoriesService
     {
+        private readonly IProductService _productService;
         private readonly IRepository<Categories> _repository;
-        public CategoriesService(IRepository<Categories> repository) : base(repository)
+        public CategoriesService(IRepository<Categories> repository, IProductService productService) : base(repository)
         {
+            _productService = productService;
             _repository = repository;
         }
-
-        public Categories Category(Guid id)
+        public IEnumerable<Product> Category(Guid id)
         {
-            return _repository.FindIncluding(c => c.Id == id);
+            var res = _productService.GetBy(c => c.IdCategories == id).ToList();
+            return res;
+            
         }
-
         public IEnumerable<Categories> GetCategories()
         {
             return _repository.Get().ToList();

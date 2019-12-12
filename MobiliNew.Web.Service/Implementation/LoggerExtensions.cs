@@ -46,6 +46,5 @@ namespace MobiliNew.Web.Service.Implementation
         {
             return _allQuotesDeletedScope(logger, count);
         }
-
     }
 }

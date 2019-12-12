@@ -8,6 +8,10 @@ namespace MobiliNew.Web.service.Interface
     public interface IProductService : IService<Product>
     {
         List<Product> GetActiveProduct();
-        IEnumerable<Product> GetBy(Guid id, string name);
+        IEnumerable<Product> GetBy(Guid id);
+        IEnumerable<Product> SearchProd(string searchKey);
+        IEnumerable<Product> Get();
+        IEnumerable<Product> QueryableIncluding(Guid id);
     }
+
 }

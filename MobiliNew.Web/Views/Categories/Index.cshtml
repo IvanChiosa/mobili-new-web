@@ -1,21 +1,77 @@
-﻿@model IEnumerable<MobiliNew.Web.Models.ReturnModels.CategoriesReturnModels>
+﻿@using MobiliNew.Web.Models.ReturnModels;
 
+@model IEnumerable<CategoriesReturnModels>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Index";
 }
 
-<h3>Mobili</h3>
 
-<table class="table">
-   @foreach (var item in Model)
+<h3>@Localizer["Furniture_Web"]</h3>
+
+<div class="row">
+    @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                <a href="/Product/ProductsByCategory/@item.Id">@item.Name</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-        </tr>
-    } 
-</table>
+        <div class="col-md-3 col-sm-4 col-6">
+            <div class="product-compact__spacer">
+                <a href="/Product/ProductsByCategory/@item.Id">
+                    <div class="product-compact__image-container">
+                    </div>
+                    <span class="product-compact__name"><b>@item.Name</b></span>
+                    <br />
+                    <span class="product-compact__image">
+                        <img class="single-retailer-img" src="@Url.Content(item.Image)">
+                    </span>
+                    <br />
+                </a>
+            </div>
+        </div>
+        <br />
+    }
+</div>
+
+@*<div class="container">
+        <div class="row">
+            <table>
+                @foreach (var item in Model)
+                {
+                <div class="col-md-3 col-sm-4 col-6">
+                    <a href="/Categories/GetSingleCategories/@item.Id">
+                        <tr>
+                            <span class="product-compact__name"><b>@item.Name</b></span>
+                            <br />
+                            <span class="product-compact__image">
+                                <img class="single-retailer-img" src="@Url.Content(item.Image)">
+                            </span>
+                            @*<td>
+                                <img class="single-retailer-img" src="@Url.Content(item.Image)">
+                                @Html.DisplayFor(modelItem => item.Image)
+                            </td>
+                        </tr>
+                     </a>
+                </div>
+                }
+            </table>
+         </div>
+    </div>*@
+
+
+
+@*<div class="container">
+        <table class="table">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="/Product/ProductsByCategory/@item.Id">@item.Name</a>
+                    </td>
+                    <td>
+                        <img class="single-retailer-img" src="@Url.Content(item.Image)">
+                        @Html.DisplayFor(modelItem => item.Image)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>*@

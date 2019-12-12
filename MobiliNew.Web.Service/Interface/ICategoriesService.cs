@@ -7,7 +7,7 @@ namespace MobiliNew.Web.service.Interface
 {
     public interface ICategoriesService : IService<Categories>
     {
-        Categories Category(Guid id);
+        IEnumerable<Product> Category(Guid id);
         IEnumerable<Categories> GetCategories();
     }
 }

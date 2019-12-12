@@ -21,9 +21,20 @@ namespace MobiliNew.Web.service.Implementation
             return _repository.GetBy(p => p.Available).ToList();
         }
 
-        public IEnumerable<Product> GetBy(Guid id, string name)
+        public IEnumerable<Product> GetBy(Guid id)
         {
             return _repository.GetBy(p => p.Available).ToList();
+        }
+
+        public IEnumerable<Product> QueryableIncluding(Guid id)
+        {
+            return _repository.QueryableIncluding(p => p.Id);
+        }
+
+        public IEnumerable<Product> SearchProd(string searchKey)
+        {
+            var Search = _repository.QueryableIncluding().Where(r => r.Name.Contains(searchKey) || r.Description.Contains(searchKey) );
+            return Search;            
         }
     }
 }

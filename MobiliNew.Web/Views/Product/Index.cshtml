@@ -1,34 +1,208 @@
-﻿@model IEnumerable<MobiliNew.Web.Models.ReturnModels.ProductReturnModels>
+﻿@using MobiliNew.Web.Models.ReturnModels;
 
+@model IEnumerable<ProductReturnModels>
+
+@*// si può fare anche cosi, aggire dirretamente sul models*@
+@*@model IEnumerable<MobiliNew.Web.Models.ReturnModels.ProductReturnModels>*@
+
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Index";
 }
-<h3>Tipologie di mobili</h3>
-
-<table class="table">
-   <tbody>
-     @foreach (var item in Model)
-      {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Available)
-            </td>*@
-            <td>
-                @Html.HiddenFor(modelItem => item.IdCategories)
-            </td>
-        </tr>
-      }
+<h3>@Localizer["Type_of_furniture"]</h3>
+<body class="single-retailer-body">
+    <tbody>
+        <div class="product-compact_spacer">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-3 col-sm-3 col-6">
+                        <div class="product-compact__spacer">
+                            <a href="/Product/ProductById/@item.Id">
+                                <div class="product-compact__image-container"></div>
+                                <span class="product-compact__name"><b>@item.Name</b></span>
+                                <br />
+                                <span class="product-compact__image">
+                                    <img class="single-retailer-img" src="@Url.Content(item.ImageUrl)">
+                                </span>
+                            </a>  
+                            <br />
+                                <span class="product-compact__type">
+                                    <span class="product-compact__decription">@item.Description</span>
+                                </span>
+                                <br />
+                                <span class="product-compact__price">
+                                    <span class="product-compact__price__value">@item.Price</span>
+                                </span>
+                            
+                            <br />
+                            @*<a href="~/Image/Products/Scrivania.png">
+                                <span class="product-compact__ratings" aria-label="Recensione: 4.2 di 5 stelle">
+                                    <span class="product-compact__ratings-container">
+                                        <span class="product-compact__ratings-bg--color" style="width: 30%"></span>
+                                        <span class="product-compact__ratings-bg--stars"></span>
+                                    </span>
+                                    <span class="product-compact__ratings-value">4.2</span>
+                                    <span class="product-compact__ratings-count">40</span>
+                                </span>
+                                <span class="product-compact__gpr-disclaimer disclaimer">Altri colori disponibile</span>
+                            </a>*@
+                        </div>
+                    </div>
+                    <br />
+                }
+            </div>
+        </div>
     </tbody>
-</table>
+</body>
+
+
+@*// si può fare anche cosi per prendere i prodotti dal db*@
+@*<table class="table">
+    <tbody>
+        <div class="product-compact_spacer">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <span class="product-compact__name"><b>@item.Name</b></span>
+                        @@Html.DisplayFor(modelItem => item.Name)@
+                    </td>
+                    <td>
+                        <img class="single-retailer-img" src="@Url.Content(item.ImageUrl)">
+                        @Html.DisplayFor(modelItem => item.ImageUrl)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Available)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.IdCategories)
+                    </td>
+                </tr>
+
+            }
+
+        </div>
+    </tbody>
+</table>*@
+
+@*<body class="single-retailer-body">
+        <div class="col-md-3 col-sm-4 col-6">
+            <h3>@Localizer["Type_of_furniture"]</h3>
+            <div class="product-compact__spacer">
+                <a asp-controller="ProductController" asp-action="Index">
+                    <div class="product-compact__image-container">
+                        <div class="product-compact__image">
+                            <div class="range-image-claim-height">
+                                <img src="~/Image/Products/Scrivania.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <span class="product-compact__name"><b>IVANO</b></span>
+                    <br />
+                    <span class="product-compact__type">
+                        @*"@
+                        Tavolo per scrivere
+                        @*"@
+                        <span class="product-compact__decription">41x57 cm</span>
+                    </span>
+                    <br />
+                    <span class="product-compact__price">
+                        <span class="product-compact__price__value">£65</span>
+                    </span>
+                </a>
+                <br />
+                <a href="~/Image/Products/Scrivania.png">
+                    <span class="product-compact__ratings" aria-label="Recensione: 4.2 di 5 stelle">
+                        <span class="product-compact__ratings-container">
+                            <span class="product-compact__ratings-bg--color" style="width: 30%"></span>
+                            <span class="product-compact__ratings-bg--stars"></span>
+                        </span>
+                        @*<span class="product-compact__ratings-value">4.2</span>
+                        <span class="product-compact__ratings-count">40</span>@
+                    </span>
+                    <span class="product-compact__gpr-disclaimer disclaimer">Altri colori disponibile</span>
+                </a>
+            </div>
+            <br />
+            <div class="product-compact__spacer">
+                <a asp-controller="ProductController" asp-action="Index">
+                    <div class="product-compact__image-container">
+                        <div class="product-compact__image">
+                            <div class="range-image-claim-height">
+                                <img src="~/Image/Products/tavolino_esterno.png" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <span class="product-compact__name"><b>VALERIA</b></span>
+                    <br />
+                    <span class="product-compact__type">
+                        @*"@
+                        Ottimi tavolini in vendità
+                        @*"@
+                        <span class="product-compact__decription">69x75 cm</span>
+                    </span>
+                    <br />
+                    <span class="product-compact__price">
+                        <span class="product-compact__price__value">£95</span>
+                    </span>
+                </a>
+                <br />
+                <a href="~/Image/Products/tavolino_esterno.png">
+                    <span class="product-compact__ratings" aria-label="Recensione: 4.2 di 5 stelle">
+                        <span class="product-compact__ratings-container">
+                            <span class="product-compact__ratings-bg--color" style="width: 30%"></span>
+                            <span class="product-compact__ratings-bg--stars"></span>
+                        </span>
+                        @*<span class="product-compact__ratings-value">4.2</span>
+                        <span class="product-compact__ratings-count">40</span>@
+                    </span>
+                    <span class="product-compact__gpr-disclaimer disclaimer">Altri colori disponibile</span>
+                </a>
+            </div>
+            <br />
+            <div class="product-compact__spacer">
+                <a asp-controller="ProductController" asp-action="Index">
+                    <div class="product-compact__image-container">
+                        <div class="product-compact__image">
+                            <div class="range-image-claim-height">
+                                <img src="~/Image/Products/sedia_rotante.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <span class="product-compact__name"><b>MARIA</b></span>
+                    <br />
+                    <span class="product-compact__type">
+                        @*"@
+                        Ottima sedia rotante
+                        @*"@
+                        <span class="product-compact__decription">32x59 cm</span>
+                    </span>
+                    <br />
+                    <span class="product-compact__price">
+                        <span class="product-compact__price__value">£75</span>
+                    </span>
+                </a>
+                <br />
+                <a href="~/Image/Products/sedia_rotante.png">
+                    <span class="product-compact__ratings" aria-label="Recensione: 4.2 di 5 stelle">
+                        <span class="product-compact__ratings-container">
+                            <span class="product-compact__ratings-bg--color" style="width: 30%"></span>
+                            <span class="product-compact__ratings-bg--stars"></span>
+                        </span>
+                        @*<span class="product-compact__ratings-value">4.2</span>
+                        <span class="product-compact__ratings-count">40</span>@
+                    </span>
+                    <span class="product-compact__gpr-disclaimer disclaimer">Altri colori disponibile</span>
+                </a>
+            </div>
+        </div>
+    </body>*@

@@ -1,0 +1,80 @@
+﻿@using MobiliNew.Web.Models.ReturnModels;
+
+@*@model IEnumerable<MobiliNew.Web.Models.ReturnModels.ProductReturnModels>*@
+
+@model IEnumerable<ProductReturnModels>
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "SearchProduct";
+    //Layout = "~/Views/Product/Index.cshtml";
+}
+
+@*<h3>@Localizer["Search_Product"]</h3>*@
+
+
+<div class="product-compact_spacer">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 col-sm-3 col-6">
+                <div class="product-compact__spacer">
+                    <div class="product-compact__image-container"></div>
+
+                    <span class="product-compact__name"><b><h3>@item.Name</h3></b></span>
+                    <br />
+                    <span class="product-compact__image">
+                        <img class="single-retailer-img" src="@Url.Content(item.ImageUrl)">
+                    </span>
+                    <br />
+                    <span class="product-compact__type">
+                        <span class="product-compact__decription">@item.Description</span>
+                    </span>
+                    <br />
+                    <span class="product-compact__price">
+                        <span class="product-compact__price__value">@item.Price</span>
+                    </span>
+                </div>
+            </div>
+            <br />
+        }
+    </div>
+</div>
+
+@*<table class="table">
+    @*<thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@

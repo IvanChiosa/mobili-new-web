@@ -21,9 +21,10 @@ namespace MobiliNew.Web.Controllers
             _categoriesService = categoriesService;
         }
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
             var result = ProductReturnModels.Cast(_productService.Get());
+            //ViewData["MobiliNew.Web"] = Mobili;
             return View(result);
         }
 
@@ -33,11 +34,35 @@ namespace MobiliNew.Web.Controllers
             var castRes = ProductReturnModels.Cast(_productService.GetBy(x => x.IdCategories == id));
             return View(castRes);
         }
-        //[HttpGet]
-        //public ActionResult SingleProduct()
-        //{
-        //    var castRest = ProductReturnModels.Cast(_productService.Get(x => x.IdCategories == id));
-        //    return ViewBag();
-        //}
+
+
+        // sospeso 
+        [HttpGet]
+        public IActionResult ProductCat(Guid id)
+        {
+            var prCat = ProductReturnModels.Cast(_productService.QueryableIncluding(x => x.Id == id));
+            return View(prCat);
+        }
+
+
+
+
+        [HttpGet]
+        public IActionResult ProductById(Guid id)
+        {
+            var prod = ProductReturnModels.Cast(_productService.GetBy(x => x.Id == id));
+            return View(prod);
+        }
+
+        [HttpGet]
+        public ActionResult SearchProduct(string searchKey = null)
+        {
+            if (searchKey == null || searchKey.Length > 0 && searchKey.Length < 3) return View("SearchProduct", new List<ProductReturnModels>());
+            else
+            {
+                var result = ProductReturnModels.Cast(_productService.SearchProd(searchKey));
+                return View("SearchProduct", result);
+            }
+        }
     }
 }

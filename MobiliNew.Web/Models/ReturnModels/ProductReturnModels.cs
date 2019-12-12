@@ -39,7 +39,8 @@ namespace MobiliNew.Web.Models.ReturnModels
                 ImageUrl = p.ImageUrl,
                 Price = p.Price,
                 Description = p.Description,
-                Available = p.Available
+                Available = p.Available,
+             
             };
         }
         public static IEnumerable<Product> Cast(IEnumerable<ProductReturnModels> list)

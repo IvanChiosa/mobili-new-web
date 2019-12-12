@@ -8,20 +8,24 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using MobiliNew.Web.Data.Models;
 using MobiliNew.Web.Models;
+using MobiliNew.Web.Service.Interface;
 
 namespace MobiliNew.Web.Controllers
 {
     public class HomeController : BaseController
     {
+        private readonly IEmailService _emailService;
         private readonly IStringLocalizer<HomeController> _stringLocalizer;
         private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> stringLocalizer) : base(logger)
+        public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> stringLocalizer, IEmailService emailService) : base(logger)
         {
+            _emailService = emailService;
             _logger = logger;
             _stringLocalizer = stringLocalizer;
         }
-        
+
         public IActionResult Index()
         {
             Response.Cookies.Append(
@@ -36,7 +40,7 @@ namespace MobiliNew.Web.Controllers
                    });
             return View();
         }
-
+   
         public IActionResult Privacy()
         {
             return View();

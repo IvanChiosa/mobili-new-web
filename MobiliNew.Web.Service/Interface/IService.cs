@@ -13,7 +13,7 @@ namespace MobiliNew.Web.service.Interface
         TEntity FindIncluding(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
         IQueryable<TEntity> Queryable();
         IQueryable<TEntity> QueryableIncluding(params Expression<Func<TEntity, object>>[] includeProperties);
-        IEnumerable<TEntity> Get();
+        IEnumerable<TEntity> Get(IEnumerable<Data.Models.Product> cat);
         IEnumerable<TEntity> GetBy(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
 
         Task<TEntity> FindAsync(params object[] keyValues);

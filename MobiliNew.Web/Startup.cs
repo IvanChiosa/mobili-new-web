@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -15,10 +18,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MobiliNew.Web.Data.Models;
+using MobiliNew.Web.Hangfire.Implementation;
 using MobiliNew.Web.Repository.Interfaces;
 using MobiliNew.Web.Repository.Repositories;
 using MobiliNew.Web.service.Implementation;
 using MobiliNew.Web.service.Interface;
+using MobiliNew.Web.Service.Implementation;
+using MobiliNew.Web.Service.Interface;
 
 namespace MobiliNew.Web
 {
@@ -70,14 +76,38 @@ namespace MobiliNew.Web
 
             services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
 
-            services.AddDbContext<corsodotnetContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<DbContext, corsodotnetContext>();
+            services.AddDbContext<masterContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<DbContext, masterContext>();
             services.AddScoped<IRepository<Categories>, Repository<Categories>>();
             services.AddScoped<IRepository<Product>, Repository<Product>>();
-
+            services.AddScoped<IRepository<EmailQueue>, Repository<EmailQueue>>();
+            
 
             services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IEmailSender, EmailSender>();
+
+
+
+
+            // Add Hangfire services.
+            services.AddHangfire(configuration => configuration
+                   .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                   .UseSimpleAssemblyNameTypeSerializer()
+                   .UseRecommendedSerializerSettings()
+                   .UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"),
+             new SqlServerStorageOptions
+             {
+                 CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                 SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                 QueuePollInterval = TimeSpan.Zero,
+                 UseRecommendedIsolationLevel = true,
+                 UsePageLocksOnDequeue = true,
+                 DisableGlobalLocks = true
+             }));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +119,8 @@ namespace MobiliNew.Web
                 new CultureInfo("it-IT"),
                 new CultureInfo("en-GB")
             };
+
+
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture("en-GB"),

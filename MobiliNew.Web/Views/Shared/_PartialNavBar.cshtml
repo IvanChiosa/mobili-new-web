@@ -1,0 +1,45 @@
+﻿@*@model IEnumerable<MobiliNew.Web.Models.ReturnModels.CategoriesReturnModels>*@
+@*@model IEnumerable<MobiliNew.Web.Models.ReturnModels.ProductReturnModels>*@
+
+@using Microsoft.AspNetCore.Mvc.Localization 
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h3>@Localizer[""]</h3>
+<header>
+    <nav class="navbar navbar-light" style="background-color: #007bff;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-#007bff">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Furniture"]</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="navbar-brand" asp-area="" asp-controller="Categories" asp-action="Index">@Localizer["Category"]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" asp-area="" asp-controller="Product" asp-action="Index">@Localizer["Product"]</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="search-button">
+            @*<form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>*@
+            <div>
+                @using (Html.BeginForm("SearchProduct", "Product", FormMethod.Get, new { @class = "search-box" }))
+                {
+                    <input class="search-box-write" type="search" placeholder="Cerca Prodotti" aria-label="Search" id="searchKey" name="searchKey" />
+                    <div class="container-search-btn">
+                        <button type="submit" class="btn-search btn"></button>
+                    </div>
+                }
+            </div>
+        </div>
+    </nav>
+</header>

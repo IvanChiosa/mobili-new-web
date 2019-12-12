@@ -117,16 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Category" xml:space="preserve">
-    <value>Categoria</value>
+  <data name="Bathroom_furniture" xml:space="preserve">
+    <value>Bathroom furniture</value>
   </data>
-  <data name="Furniture" xml:space="preserve">
-    <value>MobiliNew.Web</value>
+  <data name="Garden_Furniture" xml:space="preserve">
+    <value>Garden Furniture</value>
   </data>
-  <data name="Product" xml:space="preserve">
-    <value>Prodotti</value>
-  </data>
-  <data name="Search_Product" xml:space="preserve">
-    <value>Cerca Prodotti</value>
+  <data name="Interior_Furnishings" xml:space="preserve">
+    <value>Interior Furnishings</value>
   </data>
 </root>

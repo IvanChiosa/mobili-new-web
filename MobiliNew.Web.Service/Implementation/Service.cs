@@ -1,4 +1,5 @@
-﻿using MobiliNew.Web.Repository.Interfaces;
+﻿using MobiliNew.Web.Data.Models;
+using MobiliNew.Web.Repository.Interfaces;
 using MobiliNew.Web.service.Interface;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,11 @@ namespace MobiliNew.Web.Service.Implementation
         }
 
         public IEnumerable<TEntity> Get()
+        {
+            return _repository.Get();
+        }
+
+        public IEnumerable<TEntity> Get(IEnumerable<Product> cat)
         {
             return _repository.Get();
         }

@@ -78,3 +78,29 @@ body-index {
 .div {
     box-shadow: 10px 10px 5px #dedede;
 }
+
+.product-compact__image {
+    width: 250px;
+}
+.img.single-retailer-img {
+    width: 250px;
+}
+/*.product-compact_spacer {
+    width: 300px;
+    border: 15px;
+    padding: 50px;
+    margin: 20px;
+}*/
+.single-retailer-body {
+    background: none;
+    background-color: white;
+
+}
+ .single-retailer-img {
+    display: block;
+    max-width: 250px;
+    max-height: 100px;
+    border-radius: 15px;
+    margin: 0 auto;
+}
+
